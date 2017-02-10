@@ -17,6 +17,11 @@
     <item name="darkred" type="color">#FFCC0000</item>
     <item name="white" type="color">#ffffff</item>
 
+    <item name="indicatorColor1" type="color">#F22E2E</item>
+    <item name="indicatorColor2" type="color">#14AD51</item>
+    <item name="indicatorColor3" type="color">#2EA1F1</item>
+    <item name="indicatorColor4" type="color">#F1852E</item>
+
     <integer-array name="androidcolors">
         <item>@color/blue</item>
         <item>@color/purple</item>
@@ -24,5 +29,12 @@
         <item>@color/orange</item>
         <item>@color/red</item>
         <item>@color/darkblue</item>
+    </integer-array>
+
+    <integer-array name="indicatorColors">
+        <item>@color/indicatorColor1</item>
+        <item>@color/indicatorColor2</item>
+        <item>@color/indicatorColor3</item>
+        <item>@color/indicatorColor4</item>
     </integer-array>
 </resources>
