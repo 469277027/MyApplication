@@ -18,13 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cly.myapplication.R;
-import com.cly.myapplication.fragments.ImageSelectorFragment;
 import com.cly.myapplication.fragments.InsideFragment;
 import com.cly.myapplication.fragments.MiaoShaFragment;
 import com.cly.myapplication.fragments.OpenGLFragment;
 import com.cly.myapplication.fragments.ViewPagerFragment;
 import com.cly.myapplication.utils.ActivityUtils;
 import com.cly.myapplication.views.Progress1;
+import com.cly.imageselectorlibrary.ImageSelectorFragment;
 
 public class MainActivity extends AppCompatActivity {
 
