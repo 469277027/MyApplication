@@ -22,6 +22,11 @@
             android:title="Fourth" />
 
         <item
+            android:id="@+id/selector"
+            android:icon="@mipmap/ic_launcher"
+            android:title="ImageSelector" />
+
+        <item
             android:id="@+id/logout"
             android:icon="@mipmap/ic_launcher"
             android:title="Logout" />

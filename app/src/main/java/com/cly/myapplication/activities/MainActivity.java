@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cly.myapplication.R;
+import com.cly.myapplication.fragments.ImageSelectorFragment;
 import com.cly.myapplication.fragments.InsideFragment;
 import com.cly.myapplication.fragments.MiaoShaFragment;
 import com.cly.myapplication.fragments.OpenGLFragment;
@@ -48,29 +49,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-
+                int fl_content = R.id.fl_content;
                 switch (id) {
                     case R.id.demo1:
-                        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), InsideFragment.newInstance(), R.id.fl_content);
-                        drawerLayout.closeDrawers();
+                        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), InsideFragment.newInstance(), fl_content);
                         break;
                     case R.id.settings:
-                        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), MiaoShaFragment.newInstance(), R.id.fl_content);
-                        drawerLayout.closeDrawers();
+                        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), MiaoShaFragment.newInstance(), fl_content);
+//                        drawerLayout.closeDrawers();
                         break;
                     case R.id.trash:
-                        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), ViewPagerFragment.newInstance(), R.id.fl_content);
-                        drawerLayout.closeDrawers();
+                        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), ViewPagerFragment.newInstance(), fl_content);
+//                        drawerLayout.closeDrawers();
                         break;
                     case R.id.fourth:
-                        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), OpenGLFragment.newInstance(), R.id.fl_content);
-                        drawerLayout.closeDrawers();
+                        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), OpenGLFragment.newInstance(), fl_content);
+//                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.selector:
+                        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), ImageSelectorFragment.newInstance(), fl_content);
                         break;
                     case R.id.logout:
                         finish();
                         break;
 
                 }
+                drawerLayout.closeDrawers();
                 return true;
             }
         });
