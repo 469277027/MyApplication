@@ -5,20 +5,26 @@
 
         <item
             android:id="@+id/demo1"
-            android:title="Demo1"
-            android:icon="@mipmap/ic_launcher"/>
+            android:icon="@mipmap/ic_launcher"
+            android:title="Demo1" />
         <item
             android:id="@+id/settings"
-            android:title="Settings"
-            android:icon="@mipmap/ic_launcher"/>
+            android:icon="@mipmap/ic_launcher"
+            android:title="Settings" />
         <item
             android:id="@+id/trash"
-            android:title="Trash"
-            android:icon="@mipmap/ic_launcher"/>
+            android:icon="@mipmap/ic_launcher"
+            android:title="Trash" />
+
+        <item
+            android:id="@+id/fourth"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Fourth" />
+
         <item
             android:id="@+id/logout"
-            android:title="Logout"
-            android:icon="@mipmap/ic_launcher"/>
+            android:icon="@mipmap/ic_launcher"
+            android:title="Logout" />
 
     </group>
 </menu>

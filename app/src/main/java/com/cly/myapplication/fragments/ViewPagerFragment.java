@@ -53,20 +53,17 @@ public class ViewPagerFragment extends Fragment implements ViewPager.OnPageChang
         super.onAttach(activity);
         tabTitles = getActivity().getResources().getStringArray(R.array.tabTitles);
         indicatorColors = getActivity().getResources().getIntArray(R.array.indicatorColors);
-        for (int i : indicatorColors) {
-            Log.d(TAG, "color:binary = " + Integer.toBinaryString(i) + ",decimal = " + i);
-//            int j = 0x00FF0000;
-//            int k = i & j;
-//            k = k >> 16;
-//            Log.d(TAG, "color:r:binary = " + Integer.toBinaryString(k) + ",decimal = " + k);
-            int r = (i & 0x00FF0000) >> 16;
-            Log.d(TAG, "color:r:binary = " + Integer.toBinaryString(r) + ",decimal = " + r);
-            int g = (i & 0x0000FF00) >> 8;
-            Log.d(TAG, "color:g:binary = " + Integer.toBinaryString(g) + ",decimal = " + g);
-            int b = i & 0x000000FF;
-            Log.d(TAG, "color:b:binary = " + Integer.toBinaryString(b) + ",decimal = " + b);
-
-        }
+//        for (int i : indicatorColors) {
+//            Log.d(TAG, "color:binary = " + Integer.toBinaryString(i) + ",decimal = " + i);
+//
+//            int r = (i & 0x00FF0000) >> 16;
+//            Log.d(TAG, "color:r:binary = " + Integer.toBinaryString(r) + ",decimal = " + r);
+//            int g = (i & 0x0000FF00) >> 8;
+//            Log.d(TAG, "color:g:binary = " + Integer.toBinaryString(g) + ",decimal = " + g);
+//            int b = i & 0x000000FF;
+//            Log.d(TAG, "color:b:binary = " + Integer.toBinaryString(b) + ",decimal = " + b);
+//
+//        }
 
     }
 
@@ -170,7 +167,7 @@ public class ViewPagerFragment extends Fragment implements ViewPager.OnPageChang
     @Override
     public void onPageSelected(int position) {
 //        tabLayout.setSelectedTabIndicatorColor(indicatorColors[position]);
-        tabLayout.setTabTextColors(Color.parseColor("#7a7a7a"), indicatorColors[position]);
+//        tabLayout.setTabTextColors(Color.parseColor("#7a7a7a"), indicatorColors[position]);
         isFirstScroll = false;
     }
 

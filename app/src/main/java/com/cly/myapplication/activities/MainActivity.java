@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.cly.myapplication.R;
 import com.cly.myapplication.fragments.InsideFragment;
 import com.cly.myapplication.fragments.MiaoShaFragment;
+import com.cly.myapplication.fragments.OpenGLFragment;
 import com.cly.myapplication.fragments.ViewPagerFragment;
 import com.cly.myapplication.utils.ActivityUtils;
 import com.cly.myapplication.views.Progress1;
@@ -51,36 +52,18 @@ public class MainActivity extends AppCompatActivity {
                 switch (id) {
                     case R.id.demo1:
                         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), InsideFragment.newInstance(), R.id.fl_content);
-//                        Fragment fragment = getSupportFragmentManager().findFragmentByTag(InsideFragment.class.getSimpleName());
-//                        if (fragment == null) {
-//                            fragment = InsideFragment.newInstance();
-//                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.add(R.id.fl_content, fragment, InsideFragment.class.getSimpleName());
-//                            fragmentTransaction.commit();
-//                        } else {
-//                            getSupportFragmentManager().beginTransaction().show(fragment).commit();
-//                        }
-//                        Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.settings:
                         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), MiaoShaFragment.newInstance(), R.id.fl_content);
-//
-//                        Fragment fragment1 = getSupportFragmentManager().findFragmentByTag(MiaoShaFragment.class.getSimpleName());
-//                        if (fragment1 == null) {
-//                            fragment1 = MiaoShaFragment.newInstance();
-//                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.add(R.id.fl_content, fragment1, MiaoShaFragment.class.getSimpleName());
-//                            fragmentTransaction.commit();
-//                        } else {
-//                            getSupportFragmentManager().beginTransaction().show(fragment1).commit();
-//                        }
                         drawerLayout.closeDrawers();
-//                        Toast.makeText(getApplicationContext(), "Settings", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.trash:
                         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), ViewPagerFragment.newInstance(), R.id.fl_content);
-//                        Toast.makeText(getApplicationContext(), "Trash", Toast.LENGTH_SHORT).show();
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.fourth:
+                        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), OpenGLFragment.newInstance(), R.id.fl_content);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.logout:
