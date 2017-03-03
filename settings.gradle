@@ -1,1 +1,1 @@
-include ':app', ':imageselectorlibrary'
+include ':app', ':imageselectorlibrary', ':image-upload-master'

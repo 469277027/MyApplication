@@ -77,11 +77,12 @@ public class ShowImageFragment extends DialogFragment {
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen)
                 .setView(initView())
                 .create();
-
+        Log.d(TAG, "--> onCreateDialog");
         return alertDialog;
     }
 
     private View initView() {
+        Log.d(TAG, "--> initView");
         View rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_show_image, null);
         imageView = ((ImageView) rootView.findViewById(R.id.iv_showImage));
         return rootView;
@@ -91,21 +92,28 @@ public class ShowImageFragment extends DialogFragment {
     @Override
     public void show(FragmentManager manager, String tag) {
         super.show(manager, tag);
+        Log.d(TAG, "--> show");
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         imageView.setVisibility(View.VISIBLE);
         startAnimation(imageView);
-
+        Log.d(TAG, "--> onResume");
     }
 
     private void startAnimation(final ImageView imageView) {
         int[] screenLocation = imageInfo.getScreenLocation();
         int width = imageInfo.getWidth();
-        int height = imageInfo.getHeight();
+        final int height = imageInfo.getHeight();
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
         imageView.setLayoutParams(layoutParams);
 
         ValueAnimator valueAnimator = ObjectAnimator.ofFloat(width, screenWidth)
-                .setDuration(300);
+                .setDuration(5000);
         valueAnimator.start();
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -113,6 +121,9 @@ public class ShowImageFragment extends DialogFragment {
                 Object animatedValue = animation.getAnimatedValue();
                 float animatedValue1 = (float) animatedValue;
                 imageView.getLayoutParams().width = ((int) animatedValue1);
+                imageView.getLayoutParams().height = height;
+                imageView.postInvalidate();
+                Log.d(TAG, "--> startAnimation:animatedValue1 = " + animatedValue1);
 
             }
         });
