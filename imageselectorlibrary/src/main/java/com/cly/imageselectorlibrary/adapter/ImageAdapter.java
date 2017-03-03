@@ -10,9 +10,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cly.imageselectorlibrary.ImageSelectorFragment;
+import com.cly.imageselectorlibrary.bean.ImageInfo;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -22,7 +25,9 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.cly.imageselectorlibrary.R;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 丛龙宇 on 17-2-15.
@@ -31,11 +36,21 @@ import java.util.List;
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder> implements View.OnClickListener {
 
     private static final String TAG = "ImageAdapter";
-    private final LinearLayout.LayoutParams layoutParams;
+    private final RelativeLayout.LayoutParams layoutParams;
+
+    private static final int DEFAULT_MAX_NUM = 9;
 
     private Context context;
-    private List<Uri> list;
+    //数据源
+    private List<ImageInfo> list;
+    //使用何种方式展示
     private int showType;
+
+    //被选中的图片集合
+    private Set<ImageInfo> set = new HashSet<>();
+
+    //最大图片数量
+    private int maxNum = DEFAULT_MAX_NUM;
 
     private OnImageClickListener onImageClickListener;
 
@@ -46,15 +61,41 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
 
     @Override
     public void onClick(View v) {
+        View view = (View) v.getTag(R.id.image_tag);
+        if (view != null) {
+            int size = set.size();
+            if (!view.isSelected() && size >= maxNum) {
+                Toast.makeText(context, "最多选择" + maxNum + "张图片", Toast.LENGTH_SHORT).show();
+            } else {
+                view.setSelected(!view.isSelected());
+                view.requestLayout();
+                ImageInfo info = (ImageInfo) view.getTag();
+                if (view.isSelected()) {
+                    set.add(info);
+                } else {
+                    set.remove(info);
+                }
+            }
+        }
+        Log.d(TAG, "--> onClick:set = " + set.toString());
         onImageClickListener.imageClick(v);
     }
 
+    //得到选择的图片集合
+    public Set<ImageInfo> getSet() {
+        return set;
+    }
+
+    //设置最大图片选择数量
+    public void setMaxNum(int maxNum) {
+        this.maxNum = maxNum;
+    }
 
     public static interface OnImageClickListener {
         void imageClick(View view);
     }
 
-    public ImageAdapter(Context context, List<Uri> list, int showType) {
+    public ImageAdapter(Context context, List<ImageInfo> list, int showType) {
         Log.d(TAG, "--> ImageAdapter");
         this.context = context;
         this.list = list;
@@ -62,7 +103,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
         WindowManager systemService = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         int width = systemService.getDefaultDisplay().getWidth();
         int itemWidth = width / 3;
-        layoutParams = new LinearLayout.LayoutParams(itemWidth, itemWidth);
+        layoutParams = new RelativeLayout.LayoutParams(itemWidth, itemWidth);
     }
 
     @Override
@@ -86,7 +127,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
             SimpleDraweeView draweeView = holder.simpleDraweeView;
             draweeView.setOnClickListener(this);
             draweeView.setLayoutParams(layoutParams);
-            Uri parse = Uri.parse("file:///" + list.get(position).toString());
+            Uri parse = Uri.parse("file:///" + list.get(position).getUri().toString());
             ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(parse)
                     .setResizeOptions(new ResizeOptions(50, 50))
                     .setLocalThumbnailPreviewsEnabled(true)
@@ -102,9 +143,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
         } else {
             holder.imageView.setLayoutParams(layoutParams);
             holder.imageView.setOnClickListener(this);
+            holder.selectedState.setTag(list.get(position));
+            holder.selectedState.setSelected(list.get(position).isSelected());
+            holder.imageView.setTag(R.id.image_tag, holder.selectedState);
             Glide.with(context)
-                    .load(new File(list.get(position).toString()))
-                    .centerCrop()
+                    .load(new File(list.get(position).getUri().toString()))
                     .into(holder.imageView);
         }
     }
@@ -118,14 +161,16 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
     static class ImageHolder extends RecyclerView.ViewHolder {
 
         SimpleDraweeView simpleDraweeView;
-        ImageView imageView;
+        ImageView imageView, selectedState;
 
         public ImageHolder(View itemView, int showType) {
             super(itemView);
             if (showType == ImageSelectorFragment.SHOW_WITH_FRESCO)
                 simpleDraweeView = ((SimpleDraweeView) itemView.findViewById(R.id.sdv_imageselector));
-            if (showType == ImageSelectorFragment.SHOW_WITH_GLIDE)
+            if (showType == ImageSelectorFragment.SHOW_WITH_GLIDE) {
                 imageView = ((ImageView) itemView.findViewById(R.id.iv_imageselector));
+                selectedState = ((ImageView) itemView.findViewById(R.id.iv_imageselector_state));
+            }
         }
     }
 }

@@ -1,48 +1,64 @@
 package com.cly.imageselectorlibrary.bean;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Arrays;
-
 /**
- * Created by 丛龙宇 on 17-2-15.
+ * Created by 丛龙宇 on 17-3-3.
  */
 
 public class ImageInfo implements Parcelable {
+    private Uri uri;
+    private boolean isSelected;
 
-    private int[] screenLocation;
-    private int height;
-    private int width;
-
-    public ImageInfo(int[] screenLocation, int height, int width) {
-        this.screenLocation = screenLocation;
-        this.height = height;
-        this.width = width;
+    public ImageInfo() {
     }
 
-    public int[] getScreenLocation() {
-        return screenLocation;
+    public ImageInfo(Uri uri, boolean isSelected) {
+        this.uri = uri;
+        this.isSelected = isSelected;
     }
 
-    public void setScreenLocation(int[] screenLocation) {
-        this.screenLocation = screenLocation;
+    public Uri getUri() {
+        return uri;
     }
 
-    public int getHeight() {
-        return height;
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public boolean isSelected() {
+        return isSelected;
     }
 
-    public int getWidth() {
-        return width;
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (obj instanceof ImageInfo) {
+            if (((ImageInfo) obj).getUri().equals(uri))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return uri.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "ImageInfo{" +
+                "uri=" + uri +
+                ", isSelected=" + isSelected +
+                '}';
     }
 
     @Override
@@ -51,31 +67,17 @@ public class ImageInfo implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "ImageInfo{" +
-                "screenLocation=" + Arrays.toString(screenLocation) +
-                ", height=" + height +
-                ", width=" + width +
-                '}';
-    }
-
-    @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeIntArray(this.screenLocation);
-        dest.writeInt(this.height);
-        dest.writeInt(this.width);
-    }
-
-    public ImageInfo() {
+        dest.writeParcelable(this.uri, flags);
+        dest.writeByte(this.isSelected ? (byte) 1 : (byte) 0);
     }
 
     protected ImageInfo(Parcel in) {
-        this.screenLocation = in.createIntArray();
-        this.height = in.readInt();
-        this.width = in.readInt();
+        this.uri = in.readParcelable(Uri.class.getClassLoader());
+        this.isSelected = in.readByte() != 0;
     }
 
-    public static final Creator<ImageInfo> CREATOR = new Creator<ImageInfo>() {
+    public static final Parcelable.Creator<ImageInfo> CREATOR = new Parcelable.Creator<ImageInfo>() {
         @Override
         public ImageInfo createFromParcel(Parcel source) {
             return new ImageInfo(source);

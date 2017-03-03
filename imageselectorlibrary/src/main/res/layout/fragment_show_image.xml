@@ -6,14 +6,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/iv_showImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
             android:src="@color/blue"
             android:visibility="gone" />
 

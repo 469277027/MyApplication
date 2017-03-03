@@ -11,7 +11,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,8 +21,8 @@ import android.widget.RadioGroup;
 
 
 import com.cly.imageselectorlibrary.adapter.ImageAdapter;
-import com.cly.imageselectorlibrary.R;
 import com.cly.imageselectorlibrary.bean.ImageInfo;
+import com.cly.imageselectorlibrary.bean.ImageViewInfo;
 import com.cly.imageselectorlibrary.views.SelectorItemDecoration;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class ImageSelectorFragment extends Fragment implements LoaderManager.Loa
     private View rootView;
     private RecyclerView recyclerView;
 
-    private List<Uri> list = new ArrayList<>();
+    private List<ImageInfo> list = new ArrayList<>();
     private RadioGroup radioGroup;
     private RadioButton rbFrasco;
     private RadioButton rbGlide;
@@ -146,7 +145,7 @@ public class ImageSelectorFragment extends Fragment implements LoaderManager.Loa
 //                Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon().appendPath(data.getString(data.getColumnIndex(columns[0]))).build();
                 String imagePath = data.getString(data.getColumnIndexOrThrow(columns[0]));
                 Log.d(TAG, "--> onLoadFinished:imagePath = " + imagePath);
-                list.add(Uri.parse(imagePath));
+                list.add(new ImageInfo(Uri.parse(imagePath), false));
 //                for (String s : columns)
 //                    Log.d(TAG, "--> onLoadFinished:" + s + " = " + data.getString(data.getColumnIndex(s)));
             }
@@ -164,15 +163,21 @@ public class ImageSelectorFragment extends Fragment implements LoaderManager.Loa
 
     @Override
     public void imageClick(View view) {
+
         int height = view.getHeight();
         int width = view.getWidth();
-
         int[] screenLocation = new int[2];
-        view.getLocationOnScreen(screenLocation);
-        ImageInfo imageInfo = new ImageInfo(screenLocation, height, width);
-        Log.d(TAG, "--> imageClick:screenLocation = " + Arrays.toString(screenLocation));
 
-        ShowImageFragment showImageFragment = ShowImageFragment.newInstance(imageInfo);
+        view.getLocationOnScreen(screenLocation);
+
+        ImageViewInfo imageViewInfo = new ImageViewInfo(screenLocation, height, width);
+
+        View childView = (View) view.getTag(R.id.image_tag);
+        ImageInfo imageInfo = (ImageInfo) childView.getTag();
+
+//        Log.d(TAG, "--> imageClick:screenLocation = " + Arrays.toString(screenLocation));
+
+        ShowImageFragment showImageFragment = ShowImageFragment.newInstance(imageViewInfo, imageInfo);
         showImageFragment.show(getChildFragmentManager(), "ShowImage");
     }
 }
