@@ -116,7 +116,6 @@ public class ShowImageFragment extends DialogFragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startOutAnim();
                 animHelper.startAnim(ShowImageAnimHelper.AnimState.OUT_STATE);
                 mHandler.sendEmptyMessageDelayed(0, ANIM_DURATION);
             }
@@ -143,148 +142,10 @@ public class ShowImageFragment extends DialogFragment {
         super.onResume();
         imageView.setVisibility(View.VISIBLE);
         animHelper.startAnim(ShowImageAnimHelper.AnimState.IN_STATE);
-//        startInAnimation(imageView);
         Log.d(TAG, "--> onResume");
     }
 
 
-//    private void startOutAnim() {
-//        int[] screenLocation = imageViewInfo.getScreenLocation();
-//        int width = imageViewInfo.getWidth();
-//        final int height = imageViewInfo.getHeight();
-//
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
-//        imageView.setLayoutParams(layoutParams);
-//
-//
-//        ValueAnimator valueAnimator2 = ObjectAnimator.ofFloat(0, screenLocation[0]).setDuration(ANIM_DURATION);
-//        valueAnimator2.start();
-//        valueAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                Object animatedValue = animation.getAnimatedValue();
-//                float animatedValue1 = (float) animatedValue;
-//                ((RelativeLayout.LayoutParams) imageView.getLayoutParams()).leftMargin = (int) animatedValue1;
-//                Log.d(TAG, "--> startInAnimation:marginLeft = " + animatedValue1);
-//                imageView.requestLayout();
-//            }
-//        });
-//
-//        valueAnimator2.addListener(new AnimatorListenerAdapter() {
-//            @Override
-//            public void onAnimationEnd(Animator animation) {
-//                super.onAnimationEnd(animation);
-//            }
-//        });
-//
-//
-//        ValueAnimator valueAnimator3 = ObjectAnimator.ofFloat(0, screenLocation[1]).setDuration(ANIM_DURATION);
-//        valueAnimator3.start();
-//        valueAnimator3.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                Object animatedValue = animation.getAnimatedValue();
-//                float animatedValue1 = (float) animatedValue;
-//                ((RelativeLayout.LayoutParams) imageView.getLayoutParams()).topMargin = (int) animatedValue1;
-//                imageView.requestLayout();
-//            }
-//        });
-//
-//
-//        ValueAnimator valueAnimator = ObjectAnimator.ofFloat(screenWidth, width)
-//                .setDuration(ANIM_DURATION);
-//        valueAnimator.start();
-//        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                Object animatedValue = animation.getAnimatedValue();
-//                float animatedValue1 = (float) animatedValue;
-//                imageView.getLayoutParams().width = ((int) animatedValue1);
-//                imageView.requestLayout();
-//
-//            }
-//        });
-//
-//        ValueAnimator valueAnimator1 = ObjectAnimator.ofFloat(screenHeight, height).setDuration(ANIM_DURATION);
-//        valueAnimator1.start();
-//        valueAnimator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                Object animatedValue = animation.getAnimatedValue();
-//                float animatedValue1 = (float) animatedValue;
-//                imageView.getLayoutParams().height = ((int) animatedValue1);
-//                imageView.requestLayout();
-//            }
-//        });
-//    }
-//
-//    private void startInAnimation(final ImageView imageView) {
-//        int[] screenLocation = imageViewInfo.getScreenLocation();
-//        int width = imageViewInfo.getWidth();
-//        Glide.with(getActivity())
-//                .load(new File(imageInfo.getUri().toString()))
-//                .into(imageView);
-//        final int height = imageViewInfo.getHeight();
-//
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
-//        imageView.setLayoutParams(layoutParams);
-//
-//
-//        ValueAnimator valueAnimator2 = ObjectAnimator.ofFloat(screenLocation[0], 0).setDuration(ANIM_DURATION);
-//        valueAnimator2.start();
-//        valueAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                Object animatedValue = animation.getAnimatedValue();
-//                float animatedValue1 = (float) animatedValue;
-//                ((RelativeLayout.LayoutParams) imageView.getLayoutParams()).leftMargin = (int) animatedValue1;
-//                Log.d(TAG, "--> startInAnimation:marginLeft = " + animatedValue1);
-//                imageView.requestLayout();
-//            }
-//        });
-//
-//
-//        ValueAnimator valueAnimator3 = ObjectAnimator.ofFloat(screenLocation[1], 0).setDuration(ANIM_DURATION);
-//        valueAnimator3.start();
-//        valueAnimator3.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                Object animatedValue = animation.getAnimatedValue();
-//                float animatedValue1 = (float) animatedValue;
-//                ((RelativeLayout.LayoutParams) imageView.getLayoutParams()).topMargin = (int) animatedValue1;
-//                imageView.requestLayout();
-//            }
-//        });
-//
-//
-//        ValueAnimator valueAnimator = ObjectAnimator.ofFloat(width, screenWidth)
-//                .setDuration(ANIM_DURATION);
-//        valueAnimator.start();
-//        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                Object animatedValue = animation.getAnimatedValue();
-//                float animatedValue1 = (float) animatedValue;
-//                imageView.getLayoutParams().width = ((int) animatedValue1);
-//                imageView.requestLayout();
-//
-//            }
-//        });
-////                .;
-//
-//        ValueAnimator valueAnimator1 = ObjectAnimator.ofFloat(height, screenHeight).setDuration(ANIM_DURATION);
-//        valueAnimator1.start();
-//        valueAnimator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                Object animatedValue = animation.getAnimatedValue();
-//                float animatedValue1 = (float) animatedValue;
-//                imageView.getLayoutParams().height = ((int) animatedValue1);
-//                imageView.requestLayout();
-//            }
-//        });
 
-
-//    }
 
 }
