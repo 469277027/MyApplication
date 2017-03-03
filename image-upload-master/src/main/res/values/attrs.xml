@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="UploadView">
+
+        <attr name="progressBgColor" format="color"/>
+        <attr name="progressTextColor" format="color"/>
+
+
+    </declare-styleable>
+
+</resources>
